@@ -10,11 +10,12 @@ BLUE = 4
 ####################################################################
 # #Depends on the scenary
 # Creates a board
-max_moves=3
+MAX_MOVES=3
 h = 5 #filas
 w = 7 #columnas
 Matrix = [[0 for x in range(w)] for y in range(h)]
-#notacion fila columna, y,x
+
+#notacion fila columna, x,y
 Matrix[4][1]= GREEN
 Matrix[4][2]= GREEN
 Matrix[4][3]= BLUE
@@ -24,12 +25,12 @@ Matrix[4][6]= BLUE
 
 Matrix[3][1]= BLUE
 Matrix[3][2]= RED
-Matrix[3][3]= YELLOW
+Matrix[3][3]= GREEN
 Matrix[3][4]= RED
 Matrix[3][5]= RED
 
 Matrix[2][2]= BLUE
-Matrix[2][3]= BLUE
+Matrix[2][3]= GREEN
 Matrix[2][4]= YELLOW
 Matrix[2][5]= GREEN
 
@@ -81,7 +82,7 @@ def __get_possible_moves(pos):
 
     return possible_moves
 
-def __check_down(pos):
+def __check_down(pos):#acomodar solo mandar pos[1]
     index=0
     l1=[]
     while index < h:
@@ -96,58 +97,96 @@ def __check_down(pos):
         Matrix[index][pos[1]] = l1[index]
         index+=1
 
+def __check_row(row,a_eliminar):
+    lastNumber = 0
+    init = 0
+    list_a_revisar=[]
+    while init < w:
+        if Matrix[row][init] !=0:
+            if Matrix[row][init] == lastNumber:
+                list_a_revisar.append([row,init]) #Guardar la pos en realidad
+            else: #Si encuentra algo que no sea un 0 lo tiene que guardar entremedio
+                if len(list_a_revisar) >= 3:
+                    for pos in list_a_revisar:
+                        a_eliminar.append(pos)
+                list_a_revisar.clear()
+                list_a_revisar.append([row, init]) #Guardar la pos del nuevo nro
+                lastNumber = Matrix[row][init]      
+        else: #Si encuentra un 0 entremedio
+                if len(list_a_revisar) >= 3:
+                    for pos in list_a_revisar:
+                        a_eliminar.append(pos)
+                lastNumber = Matrix[row][init]
+                list_a_revisar.clear()
+        init+=1
+    if len(list_a_revisar) >= 3:#porque llega al final
+        for pos in list_a_revisar:
+            if pos not in a_eliminar:
+                a_eliminar.append(pos)
+
+def __check_col(col,a_eliminar):
+    lastNumber = 0
+    init = 0
+    list_a_revisar=[]
+    while init < h:
+        if Matrix[init][col] !=0:
+            if Matrix[init][col] == lastNumber:
+                list_a_revisar.append([init, col]) #Guardar la pos en realidad
+            else: #Si encuentra algo que no sea un 0 lo tiene que guardar entremedio
+                if len(list_a_revisar) >= 3:
+                    for pos in list_a_revisar:
+                        a_eliminar.append(pos)
+                list_a_revisar.clear()
+                list_a_revisar.append([init, col]) #Guardar la pos del nuevo nro
+                lastNumber = Matrix[init][col]      
+        else: #Si encuentra un 0 entremedio
+                if len(list_a_revisar) >= 3:
+                    for pos in list_a_revisar:
+                        a_eliminar.append(pos)
+                lastNumber = Matrix[init][col]
+                list_a_revisar.clear()
+        init+=1
+    if len(list_a_revisar) >= 3:#porque llega al final
+        for pos in list_a_revisar:
+            if pos not in a_eliminar:
+                a_eliminar.append(pos)
+
+def __execute_move(before,after):
+    global number_of_moves
+    number_of_moves +=1
+    aux = Matrix[before[0]][before[1]]
+    Matrix[before[0]][before[1]] = Matrix[after[0]][after[1]]
+    Matrix[after[0]][after[1]] = aux
+    __check_down(before)#mueve hacia abajo
+    __check_down(after)#mueve hacia abajo
+    #Puede ir en procedimiento chequear tablero
+    repetir = True
+    while repetir:
+        a_eliminar=[]
+        for row in range(0,h):
+            __check_row(row,a_eliminar)
+        for col in range(0,w):
+            __check_col(col,a_eliminar)
+        for pos in a_eliminar:
+            Matrix[pos[0]][pos[1]] = 0
+        for pos in a_eliminar:
+            __check_down([pos[0],pos[1]])# Tiene que ser en un for separado sino mueve mal
+        if len(a_eliminar) == 0:
+            repetir = False
+
+
+
+#Game
+number_of_moves = 0
 listOfBoxes = __getBoxes()
-#print(listOfBoxes)
 
 __print_board(Matrix)
 print()
 possible_moves = __get_possible_moves([4,1])
-print(possible_moves)
+print("possible moves", possible_moves)
 
-
-
-# if is a valid move()
-#     executeMove(antes, despues) => while baja en caso de que quede un 0 y arriba cosas y desp y chequea arriba abajo y a los costados y vuelve a chequear los 0!
-
-
-def __detectH(row):
-    #deleteList=[[posx,posy],[posx,posy],[posx,posy]]
-    if num == 0:
-        #check size
-        deleteList.clear()
-
-
-
-
-    for i in range(1,w):
-        print(i)
-
-    if len(listABorrar)>=3: #lista a borrar tiene las pos a borrar
-        #borrar
-
-
-
-aRevisar=[]
-print()
-def __execute_move(before,after):
-    value = Matrix[after[0]][after[1]]
-    aux = Matrix[before[0]][before[1]]
-    Matrix[before[0]][before[1]] = Matrix[after[0]][after[1]]
-    Matrix[after[0]][after[1]] = aux
-    __check_down(before)
-    __check_down(after)
-    #A revisar
-    #arriba abajo
-    #
-
-
-
-##############################
 __execute_move([4,4],[4,3])
+print()
 __print_board(Matrix)
-#__detectH(0)
-
-
-#__getBoxes()
 
 #if len(list_of_GetBoxes) == 0 terminó

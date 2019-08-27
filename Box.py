@@ -4,5 +4,5 @@ class box:
         self.x = x
         self.y = y
 
-    def getPossibleMovements:
-        return lista con las pos posibles
+    #def getPossibleMovements:
+    #    return lista con las pos posibles
