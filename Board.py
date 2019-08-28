@@ -14,8 +14,11 @@ class Board:
         self.w = w
         self.matrix = [[0 for x in range(w)] for y in range(h)]
 
-    def insertBox(self,pos,color):
+    def insert_box(self,pos,color):
         self.matrix[pos[0]][pos[1]]= color
+
+    def get_color(self,pos):
+        return self.matrix[pos[0]][pos[1]]
 
     def getBoxes(self):
         list= []
@@ -32,7 +35,6 @@ class Board:
             possible_moves.append([pos[0]-1, pos[1]])
         # down
         if pos[0] + 1 < self.h:
-            print(pos)
             possible_moves.append([pos[0]+1, pos[1]])
         # left
         if pos[1] - 1 >= 0:
@@ -148,3 +150,4 @@ class Board:
                 self.__check_down([pos[0],pos[1]])# Tiene que ser en un for separado sino mueve mal
             if len(a_eliminar) == 0:
                 repetir = False
+                

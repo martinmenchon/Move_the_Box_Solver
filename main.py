@@ -16,45 +16,63 @@ MAX_MOVES=3
 number_of_moves = 0
 
 # Creates a board
-h = 5 #filas
-w = 7 #columnas
+h = 6 #row
+w = 7 #col
 board = Board(h,w)
 
-#notacion fila columna, x,y
-board.insertBox([4,1],GREEN)
-board.insertBox([4,2],GREEN)
-board.insertBox([4,3],BLUE)
-board.insertBox([4,4],GREEN)
-board.insertBox([4,5],BLUE)
-board.insertBox([4,6],BLUE)
+# Row x, Col y
+board.insert_box([5,2],GREEN)
+board.insert_box([4,2],GREEN)
+board.insert_box([3,2],RED)
+board.insert_box([2,2],GREEN)
+board.insert_box([1,2],GREEN)
 
-board.insertBox([3,1],BLUE)
-board.insertBox([3,2],RED)
-board.insertBox([3,3],GREEN)
-board.insertBox([3,4],RED)
-board.insertBox([3,5],RED)
-
-board.insertBox([2,2],BLUE)
-board.insertBox([2,3],GREEN)
-board.insertBox([2,4],YELLOW)
-board.insertBox([2,5],GREEN)
-
-board.insertBox([1,3],GREEN)
-board.insertBox([1,4],GREEN)
-
-board.insertBox([0,3],YELLOW)
+board.insert_box([5,4],RED)
+board.insert_box([4,4],RED)
+board.insert_box([3,4],GREEN)
+board.insert_box([2,4],RED)
+board.insert_box([1,4],RED)
+board.insert_box([0,4],GREEN)
 ##############################
 
 board.print_board()
 listOfBoxes = board.getBoxes()
-
 print()
-possible_moves = board.get_possible_moves([4,1])
-print("possible moves", possible_moves)
+#possible_moves = board.get_possible_moves([4,1])
+#board.execute_move([4,4],[4,3])
 
-board.execute_move([4,4],[4,3])
-print()
-board.print_board()
+def bfs(game_states):
+    visited = []
+    while len(game_states) != 0:
+        state = game_states.pop(0)
+        actual_board = state[0]
+        steps_list = state[1]
+        visited.append(actual_board)
+        listOfBoxes = actual_board.getBoxes()
+        if len(listOfBoxes) == 0 and len(steps_list) <= MAX_MOVES:
+            return steps_list
+        else:
+            if len(steps_list) < MAX_MOVES:
+                for box in listOfBoxes:
+                    possible_moves = actual_board.get_possible_moves(box) #Revisar los possibles moves
+                    for move in possible_moves:
+                        if actual_board.get_color(box) != actual_board.get_color(move): #Poda
+                            new_board = copy.deepcopy(actual_board)
+                            new_board.execute_move(box,move)
+                            if new_board not in visited: #otra poda es fijarse que haya colores de todo o 0 o >=3
+                                new_steps_list = copy.deepcopy(steps_list)
+                                new_steps_list.append([box,move])
+                                game_states.append([new_board,new_steps_list])
 
-#if len(list_of_GetBoxes) == 0 terminó
-#copy va a servir para el backtracking
+
+game_states=[]
+game_states.append([board,[]])
+print("Inicia BFS:\n")
+moves_list = []
+moves_list = bfs(game_states)
+if len(moves_list) > 0:
+    print("Se encontró solucion:")
+    for move in moves_list:
+        print(move)
+else:
+    print("No se encontró solución")
