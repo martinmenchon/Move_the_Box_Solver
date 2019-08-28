@@ -20,7 +20,7 @@ class Board:
     def get_color(self,pos):
         return self.matrix[pos[0]][pos[1]]
 
-    def getBoxes(self):
+    def get_boxes(self):
         list= []
         for x,row in enumerate(self.matrix):
             for y,element in enumerate(row):

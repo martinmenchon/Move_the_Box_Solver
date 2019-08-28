@@ -36,10 +36,7 @@ board.insert_box([0,4],GREEN)
 ##############################
 
 board.print_board()
-listOfBoxes = board.getBoxes()
 print()
-#possible_moves = board.get_possible_moves([4,1])
-#board.execute_move([4,4],[4,3])
 
 def bfs(game_states):
     visited = []
@@ -48,27 +45,27 @@ def bfs(game_states):
         actual_board = state[0]
         steps_list = state[1]
         visited.append(actual_board)
-        listOfBoxes = actual_board.getBoxes()
-        if len(listOfBoxes) == 0 and len(steps_list) <= MAX_MOVES:
+        list_of_boxes = actual_board.get_boxes()
+        if len(list_of_boxes) == 0 and len(steps_list) <= MAX_MOVES:
             return steps_list
         else:
             if len(steps_list) < MAX_MOVES:
-                for box in listOfBoxes:
-                    possible_moves = actual_board.get_possible_moves(box) #Revisar los possibles moves
+                for box in list_of_boxes:
+                    possible_moves = actual_board.get_possible_moves(box)
                     for move in possible_moves:
                         if actual_board.get_color(box) != actual_board.get_color(move): #Poda
                             new_board = copy.deepcopy(actual_board)
                             new_board.execute_move(box,move)
-                            if new_board not in visited: #otra poda es fijarse que haya colores de todo o 0 o >=3
+                            if new_board not in visited: #otra poda es fijarse que haya colores de todo o 0 o >=3 HACER
                                 new_steps_list = copy.deepcopy(steps_list)
                                 new_steps_list.append([box,move])
                                 game_states.append([new_board,new_steps_list])
 
-
 game_states=[]
 game_states.append([board,[]])
-print("Inicia BFS:\n")
 moves_list = []
+
+print("Inicia BFS:\n")
 moves_list = bfs(game_states)
 if len(moves_list) > 0:
     print("Se encontró solucion:")
