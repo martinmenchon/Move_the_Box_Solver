@@ -32,6 +32,7 @@ def bfs(game_states):
                                 new_steps_list.append([box, move])
                                 game_states.append([new_board, new_steps_list])
 
+copy_board = copy.deepcopy(board)
 game_states = []
 game_states.append([board, []])
 
@@ -43,3 +44,8 @@ if len(moves_list) > 0:
         print(move)
 else:
     print("No se encontró solución")
+
+
+for i, move in enumerate(moves_list):
+    UI.draw_board(copy_board, i, move)
+    copy_board.execute_move(move[0], move[1])
