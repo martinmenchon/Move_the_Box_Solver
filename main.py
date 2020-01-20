@@ -1,39 +1,10 @@
 import copy
 from Board import Board
+import UI
 
-###Constants###
-EMPTY = 0
-#Boxes
-RED = 1
-GREEN = 2
-YELLOW = 3
-BLUE = 4
-
-##############################
 #Game
-#Depends on the scenary
-MAX_MOVES=3
-number_of_moves = 0
-
-# Creates a board
-h = 6 #row
-w = 7 #col
-board = Board(h,w)
-
-# Row x, Col y
-board.insert_box([5,2],GREEN)
-board.insert_box([4,2],GREEN)
-board.insert_box([3,2],RED)
-board.insert_box([2,2],GREEN)
-board.insert_box([1,2],GREEN)
-
-board.insert_box([5,4],RED)
-board.insert_box([4,4],RED)
-board.insert_box([3,4],GREEN)
-board.insert_box([2,4],RED)
-board.insert_box([1,4],RED)
-board.insert_box([0,4],GREEN)
-##############################
+MAX_MOVES = 3 #Depends on the level
+board = UI.buildBoard('level_4.png')
 
 board.print_board()
 print()
@@ -58,12 +29,11 @@ def bfs(game_states):
                             new_board.execute_move(box,move)
                             if new_board not in visited: #otra poda es fijarse que haya colores de todo o 0 o >=3 HACER
                                 new_steps_list = copy.deepcopy(steps_list)
-                                new_steps_list.append([box,move])
-                                game_states.append([new_board,new_steps_list])
+                                new_steps_list.append([box, move])
+                                game_states.append([new_board, new_steps_list])
 
-game_states=[]
-game_states.append([board,[]])
-moves_list = []
+game_states = []
+game_states.append([board, []])
 
 print("Inicia BFS:\n")
 moves_list = bfs(game_states)

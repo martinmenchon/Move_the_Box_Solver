@@ -1,11 +1,4 @@
-###Constants###
-EMPTY = 0
-
-#Boxes
-RED = 1
-GREEN = 2
-YELLOW = 3
-BLUE = 4
+import constants
 
 class Board:
 
@@ -24,7 +17,7 @@ class Board:
         list= []
         for x,row in enumerate(self.matrix):
             for y,element in enumerate(row):
-                if element != EMPTY:
+                if element != constants.EMPTY:
                     list.append([x, y])
         return list
 
@@ -47,13 +40,13 @@ class Board:
     def print_board(self):
         for row in self.matrix:
             for element in row:
-                if element is GREEN:
+                if element is constants.GREEN:
                     print('\033[92m' + str(element) + '\033[0m', end='')
-                elif element is BLUE:
+                elif element is constants.BLUE:
                     print('\033[34m' + str(element) + '\033[0m', end='')
-                elif element is RED:
+                elif element is constants.RED:
                     print('\033[31m' + str(element) + '\033[0m', end='')
-                elif element is YELLOW:
+                elif element is constants.YELLOW:
                     print('\033[93m' + str(element) + '\033[0m', end='')
                 else:
                     print(element, end='')
@@ -63,8 +56,8 @@ class Board:
         index=0
         l1=[]
         while index < self.h:
-            if self.matrix[index][pos[1]] == EMPTY:
-                l1.insert(0,EMPTY)
+            if self.matrix[index][pos[1]] == constants.EMPTY:
+                l1.insert(0,constants.EMPTY)
             else:
                 l1.append(self.matrix[index][pos[1]])
             index+=1
@@ -75,11 +68,11 @@ class Board:
             index+=1
 
     def __check_row(self, row,a_eliminar):
-        lastNumber = EMPTY
+        lastNumber = constants.EMPTY
         init = 0
         list_a_revisar=[]
         while init < self.w:
-            if self.matrix[row][init] != EMPTY:
+            if self.matrix[row][init] != constants.EMPTY:
                 if self.matrix[row][init] == lastNumber:
                     list_a_revisar.append([row,init]) #Guardar la pos en realidad
                 else: #Si encuentra algo que no sea un EMPTY lo tiene que guardar entremedio
@@ -102,11 +95,11 @@ class Board:
                     a_eliminar.append(pos)
 
     def __check_col(self,col,a_eliminar):
-        lastNumber = EMPTY
+        lastNumber = constants.EMPTY
         init = 0
         list_a_revisar=[]
         while init < self.h:
-            if self.matrix[init][col] != EMPTY:
+            if self.matrix[init][col] != constants.EMPTY:
                 if self.matrix[init][col] == lastNumber:
                     list_a_revisar.append([init, col]) #Guardar la pos en realidad
                 else: #Si encuentra algo que no sea un EMPTY lo tiene que guardar entremedio
