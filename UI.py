@@ -5,12 +5,12 @@ from Board import Board
 
 def buildBoard(level):
     # Creates a board
-    # h = 10 #row
-    # w = 7 #col
+    # h = 10 #row w = 7 #col
     board = Board(10,7)
-    ##############################
+    
     #Boxes
-    boxes = [[constants.RED,"red_box.png"],[constants.GREEN,'green_box.png'],[constants.YELLOW,'yellow_box.png'],[constants.BLUE,'blue_box.png'],[constants.BROWN,'brown_box.png'],[constants.BLACK,'black_box.png']]
+    boxes = [[constants.RED,"red_box.png"],[constants.GREEN,'green_box.png'],[constants.YELLOW,'yellow_box.png'],
+             [constants.BLUE,'blue_box.png'],[constants.BROWN,'brown_box.png'],[constants.BLACK,'black_box.png']]
 
     img_rgb = cv.imread('images/levels/'+level)
     img_rgb = img_rgb[177:1727, 0:1080]

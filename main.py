@@ -27,7 +27,7 @@ def bfs(game_states):
                         if actual_board.get_color(box) != actual_board.get_color(move): #Poda
                             new_board = copy.deepcopy(actual_board)
                             new_board.execute_move(box,move)
-                            if new_board not in visited: #otra poda es fijarse que haya colores de todo o 0 o >=3 HACER
+                            if new_board not in visited: #otra poda es fijarse que haya colores 0 o >=3 HACER
                                 new_steps_list = copy.deepcopy(steps_list)
                                 new_steps_list.append([box, move])
                                 game_states.append([new_board, new_steps_list])

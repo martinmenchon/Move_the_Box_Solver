@@ -122,16 +122,14 @@ class Board:
                     a_eliminar.append(pos)
 
     def execute_move(self,before,after):
-        #global number_of_moves #ver
-        #number_of_moves +=1
         aux = self.matrix[before[0]][before[1]]
         self.matrix[before[0]][before[1]] = self.matrix[after[0]][after[1]]
         self.matrix[after[0]][after[1]] = aux
         self.__check_down(before)#mueve hacia abajo
         self.__check_down(after)#mueve hacia abajo
         #Puede ir en procedimiento chequear tablero
-        repetir = True
-        while repetir:
+        repeat = True
+        while repeat:
             a_eliminar=[]
             for row in range(0,self.h):
                 self.__check_row(row,a_eliminar)
@@ -142,5 +140,5 @@ class Board:
             for pos in a_eliminar:
                 self.__check_down([pos[0],pos[1]])# Tiene que ser en un for separado sino mueve mal
             if len(a_eliminar) == 0:
-                repetir = False
+                repeat = False
                 
