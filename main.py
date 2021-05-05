@@ -4,7 +4,7 @@ import UI
 
 #Game
 MAX_MOVES = 3 #Depends on the level
-board = UI.buildBoard('level_4.png')
+board = UI.buildBoard('level_1.png')
 
 board.print_board()
 print()
@@ -39,11 +39,11 @@ game_states.append([board, []])
 print("Inicia BFS:\n")
 moves_list = bfs(game_states)
 if len(moves_list) > 0:
-    print("Se encontró solucion:")
+    print("Se encontro solucion:")
     for move in moves_list:
         print(move)
 else:
-    print("No se encontró solución")
+    print("No se encontro solucion")
 
 
 for i, move in enumerate(moves_list):

@@ -17,10 +17,10 @@ def buildBoard(level):
     img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
 
     for box in boxes:
-        template = cv.imread('images/boxes/'+box[1],0)
-        w, h = template.shape[::-1]
-        res = cv.matchTemplate(img_gray,template,cv.TM_CCOEFF_NORMED)
-        threshold = 0.8
+        template = cv.imread('images/boxes/'+box[1])
+        w, h = template.shape[0:2]
+        res = cv.matchTemplate(img_rgb,template,cv.TM_CCOEFF_NORMED)
+        threshold = 0.4
         loc = np.where(res >= threshold)
 
         for pt in zip(*loc[::-1]):
@@ -59,10 +59,15 @@ def draw_board(board,step, move):
         color = board.get_color(box)
         box_name = find_color(color)
 
-        x = box[0] * 155
+        x = box[0] * 155 #Change 155 to constant
         y = box[1] * 155
-        template = cv.imread('images/boxes/' + box_name)
-        img_rgb[x:x + 155, y:y + 155] = template
+        template = cv.imread('images/boxes_transparent/' + box_name,-1)
+        alpha_s = template[:, :, 3] / 255.0
+        alpha_l = 1.0 - alpha_s
+
+        for c in range(0, 3):
+            img_rgb[x:x + 155, y:y + 155, c] = (alpha_s * template[:, :, c] +
+                                    alpha_l * img_rgb[x:x + 155, y:y + 155, c])
 
     y1 = move[0][0] * 155
     x1 = move[0][1] * 155

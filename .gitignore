@@ -1,0 +1,4 @@
+.DS_Store
+UI.cpython-37.pyc
+*.pyc
+/__pycache__/Board.cpython-37.pyc
