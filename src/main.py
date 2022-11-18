@@ -33,6 +33,12 @@ def bfs(game_states):
                                 new_steps_list.append([box, move])
                                 game_states.append([new_board, new_steps_list])
 
+#TODO AGREGAR MAIN FUNCTION
+#TODO algorithm class
+#TODO pydoc
+#TODO docker
+#TODO pre-commit
+
 copy_board = copy.deepcopy(board)
 game_states = []
 game_states.append([board, []])

@@ -12,7 +12,7 @@ class Board:
             self.h = matrix.shape[0]
             self.w = matrix.shape[1]
             self.matrix = matrix.tolist()
-            self.max_moves = int(args[0].split("_")[-1].split(".")[0])
+            self.max_moves = int(args[0].split("-")[-1].split(".")[0])
 
         # when 2 arguments are passed
         elif len(args) == 2:
