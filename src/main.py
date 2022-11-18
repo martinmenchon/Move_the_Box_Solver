@@ -6,7 +6,7 @@ MAX_MOVES = 3 #Depends on the level #mover como param en el board
 board = UI.buildBoard('level_1.png')
 board.print_board()
 
-# board = Board("data/levels/level_22_3.csv")
+# board = Board("data/levels/level_22-3.csv")
 # board.print_board()
 print()
 
