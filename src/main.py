@@ -1,13 +1,12 @@
 import copy
-from Board import Board
 import UI
 
 #Game
-MAX_MOVES = 4 #Depends on the level #mover como param en el board
+MAX_MOVES = 3 #Depends on the level #mover como param en el board
 board = UI.buildBoard('level_1.png')
 board.print_board()
 
-# board = Board("level_22_3.csv")
+# board = Board("data/levels/level_22_3.csv")
 # board.print_board()
 print()
 
@@ -26,10 +25,10 @@ def bfs(game_states):
                 for box in list_of_boxes:
                     possible_moves = actual_board.get_possible_moves(box)
                     for move in possible_moves:
-                        if actual_board.get_color(box) != actual_board.get_color(move): #Poda
+                        if actual_board.get_color(box) != actual_board.get_color(move): #Bound
                             new_board = copy.deepcopy(actual_board)
                             new_board.execute_move(box, move)
-                            if new_board not in visited: #otra poda es fijarse que haya colores 0 o >=3 HACER
+                            if new_board not in visited: #otra posible Bound es fijarse que haya colores 0 o >=3 HACER
                                 new_steps_list = copy.deepcopy(steps_list)
                                 new_steps_list.append([box, move])
                                 game_states.append([new_board, new_steps_list])

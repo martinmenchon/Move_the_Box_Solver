@@ -9,17 +9,17 @@ def buildBoard(level):
     board = Board(10,7)
     
     #Boxes
-    boxes = [[constants.RED, "red_box.png"],[constants.GREEN, 'green_box.png'], [constants.YELLOW, 'yellow_box.png'],
-             [constants.BLUE, 'blue_box.png'],[constants.BROWN, 'brown_box.png'], [constants.BLACK, 'black_box.png']]
+    boxes = [[constants.RED, "red_box.png"], [constants.GREEN, 'green_box.png'], [constants.YELLOW, 'yellow_box.png'],
+             [constants.BLUE, 'blue_box.png'], [constants.BROWN, 'brown_box.png'], [constants.BLACK, 'black_box.png']]
 
-    img_rgb = cv.imread('images/levels/'+level)
+    img_rgb = cv.imread('assets/levels/'+level)
     img_rgb = img_rgb[177:1727, 0:1080]
     img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
 
     for box in boxes:
-        template = cv.imread('images/boxes/'+box[1]) #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
+        template = cv.imread('assets/boxes/'+box[1]) #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
         w, h = template.shape[0:2]
-        res = cv.matchTemplate(img_rgb,template,cv.TM_CCOEFF_NORMED)
+        res = cv.matchTemplate(img_rgb, template, cv.TM_CCOEFF_NORMED)
         threshold = 0.6
         loc = np.where(res >= threshold)
 
@@ -35,7 +35,7 @@ def buildBoard(level):
             #cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
 
     #board.print_board()
-    cv.imwrite('images/res.png',img_rgb)
+    cv.imwrite('assets/sol.png', img_rgb)
 
     return board
 
@@ -51,7 +51,7 @@ def find_color(box):
     return box_name
 
 def draw_board(board,step, move):
-    img_rgb = cv.imread('images/backgrounds/miami.png')
+    img_rgb = cv.imread('assets/backgrounds/miami.png')
     img_rgb = img_rgb[177:1727, 0:1080]
 
     list_of_boxes = board.get_boxes()
@@ -61,7 +61,7 @@ def draw_board(board,step, move):
 
         x = box[0] * 155 #Change 155 to constant
         y = box[1] * 155
-        template = cv.imread('images/boxes_transparent/' + box_name,-1)
+        template = cv.imread('assets/boxes_transparent/' + box_name,-1)
         alpha_s = template[:, :, 3] / 255.0
         alpha_l = 1.0 - alpha_s
 
@@ -78,4 +78,4 @@ def draw_board(board,step, move):
     cv.rectangle(img_rgb, (x1, y1), (x1 + 155, y1 + 155), (0, 0, 255), 2)
     cv.rectangle(img_rgb, (x2, y2), (x2 + 155, y2 + 155), (0, 0, 255), 2)
 
-    cv.imwrite('images/res_'+str(step)+'.png', img_rgb)
+    cv.imwrite('assets/sol_'+str(step)+'.png', img_rgb)

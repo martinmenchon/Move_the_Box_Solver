@@ -67,12 +67,12 @@ class Board:
                     print(element, end='')
             print()
 
-    def __check_down(self,pos):#acomodar solo mandar pos[1]
+    def __check_down(self, pos):#acomodar solo mandar pos[1]
         index=0
         l1=[]
         while index < self.h:
             if self.matrix[index][pos[1]] == constants.EMPTY:
-                l1.insert(0,constants.EMPTY)
+                l1.insert(0, constants.EMPTY)
             else:
                 l1.append(self.matrix[index][pos[1]])
             index+=1
