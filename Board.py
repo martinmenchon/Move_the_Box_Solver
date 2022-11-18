@@ -1,14 +1,29 @@
+import pandas as pd
+
 import constants
 
 class Board:
 
-    def __init__(self,h,w):
-        self.h = h
-        self.w = w
-        self.matrix = [[0 for x in range(w)] for y in range(h)]
+    def __init__(self, *args):
+        # when 1 argument is passed
+        if len(args) == 1:
+            df = pd.read_csv(args[0], header=None, sep="\t")
+            matrix = df.to_numpy()
+            self.h = matrix.shape[0]
+            self.w = matrix.shape[1]
+            self.matrix = matrix.tolist()
+            self.max_moves = int(args[0].split("_")[-1].split(".")[0])
+
+        # when 2 arguments are passed
+        elif len(args) == 2:
+            self.h = args[0]
+            self.w = args[1]
+            self.matrix = [[0 for x in range(self.w)] for y in range(self.h)]
+            # self.max_moves = TODO not ready
+
 
     def insert_box(self,pos,color):
-        self.matrix[pos[0]][pos[1]]= color
+        self.matrix[pos[0]][pos[1]] = color
 
     def get_color(self,pos):
         return self.matrix[pos[0]][pos[1]]
@@ -141,4 +156,7 @@ class Board:
                 self.__check_down([pos[0],pos[1]])# Tiene que ser en un for separado sino mueve mal
             if len(a_eliminar) == 0:
                 repeat = False
-                
+
+    def board_to_csv(self):
+        df = pd.DataFrame(self.matrix)
+        return df

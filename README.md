@@ -1,4 +1,4 @@
-# <img src="images/boxes/brown_box.png"  width="75"> Move the Box - Solver
+# <img src="images/boxes_transparent/brown_box.png"  width="75"> Move the Box - Solver
 
 ## Educational tool to solve the levels of the game move the box
 

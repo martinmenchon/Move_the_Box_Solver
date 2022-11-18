@@ -9,18 +9,18 @@ def buildBoard(level):
     board = Board(10,7)
     
     #Boxes
-    boxes = [[constants.RED,"red_box.png"],[constants.GREEN,'green_box.png'],[constants.YELLOW,'yellow_box.png'],
-             [constants.BLUE,'blue_box.png'],[constants.BROWN,'brown_box.png'],[constants.BLACK,'black_box.png']]
+    boxes = [[constants.RED, "red_box.png"],[constants.GREEN, 'green_box.png'], [constants.YELLOW, 'yellow_box.png'],
+             [constants.BLUE, 'blue_box.png'],[constants.BROWN, 'brown_box.png'], [constants.BLACK, 'black_box.png']]
 
     img_rgb = cv.imread('images/levels/'+level)
     img_rgb = img_rgb[177:1727, 0:1080]
     img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
 
     for box in boxes:
-        template = cv.imread('images/boxes/'+box[1])
+        template = cv.imread('images/boxes/'+box[1]) #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
         w, h = template.shape[0:2]
         res = cv.matchTemplate(img_rgb,template,cv.TM_CCOEFF_NORMED)
-        threshold = 0.4
+        threshold = 0.6
         loc = np.where(res >= threshold)
 
         for pt in zip(*loc[::-1]):
