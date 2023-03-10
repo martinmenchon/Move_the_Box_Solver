@@ -1,23 +1,22 @@
 import cv2 as cv
 import numpy as np
 import constants
-from Board import Board
+from board import Board
+
 
 def buildBoard(level):
     # Creates a board
-    # h = 10 #row w = 7 #col
-    board = Board(10,7)
+    board = Board(constants.H, constants.W)
     
     #Boxes
     boxes = [[constants.RED, "red_box.png"], [constants.GREEN, 'green_box.png'], [constants.YELLOW, 'yellow_box.png'],
              [constants.BLUE, 'blue_box.png'], [constants.BROWN, 'brown_box.png'], [constants.BLACK, 'black_box.png']]
 
-    img_rgb = cv.imread('assets/levels/'+level)
+    img_rgb = cv.imread(f'assets/levels/{level}')
     img_rgb = img_rgb[177:1727, 0:1080]
-    img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
 
     for box in boxes:
-        template = cv.imread('assets/boxes/'+box[1]) #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
+        template = cv.imread(f'assets/boxes/{box[1]}') #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
         w, h = template.shape[0:2]
         res = cv.matchTemplate(img_rgb, template, cv.TM_CCOEFF_NORMED)
         threshold = 0.6
@@ -50,6 +49,7 @@ def find_color(box):
             box_name = element[1]
     return box_name
 
+
 def draw_board(board,step, move):
     img_rgb = cv.imread('assets/backgrounds/miami.png')
     img_rgb = img_rgb[177:1727, 0:1080]
@@ -61,7 +61,7 @@ def draw_board(board,step, move):
 
         x = box[0] * 155 #Change 155 to constant
         y = box[1] * 155
-        template = cv.imread('assets/boxes_transparent/' + box_name,-1)
+        template = cv.imread(f'assets/boxes_transparent/{box_name}', -1)
         alpha_s = template[:, :, 3] / 255.0
         alpha_l = 1.0 - alpha_s
 
