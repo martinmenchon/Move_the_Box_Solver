@@ -15,8 +15,8 @@ def bfs(game_states):
     visited = []
     while len(game_states) != 0:
         state = game_states.pop(0)
-        actual_board = state[0]
-        steps_list = state[1]
+        actual_board = state["board"]
+        steps_list = state["steps"]
         visited.append(actual_board)
         list_of_boxes = actual_board.get_boxes()
         if len(list_of_boxes) == 0 and len(steps_list) <= MAX_MOVES:
@@ -32,7 +32,7 @@ def bfs(game_states):
                             if new_board not in visited: #otra posible Bound es fijarse que haya colores 0 o >=3 HACER
                                 new_steps_list = copy.deepcopy(steps_list)
                                 new_steps_list.append([box, move])
-                                game_states.append([new_board, new_steps_list])
+                                game_states.append({"board": new_board, "steps": new_steps_list})
 
 #TODO AGREGAR MAIN FUNCTION
 #TODO algorithm class
@@ -42,7 +42,7 @@ def bfs(game_states):
 
 copy_board = copy.deepcopy(board)
 game_states = []
-game_states.append([board, []])
+game_states.append({"board":board, "steps": []})
 
 print("Start BFS:\n")
 moves_list = bfs(game_states)
