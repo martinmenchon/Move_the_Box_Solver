@@ -39,6 +39,7 @@ def bfs(game_states):
 #TODO pydoc
 #TODO docker
 #TODO pre-commit
+#TODO add logs
 
 copy_board = copy.deepcopy(board)
 game_states = []

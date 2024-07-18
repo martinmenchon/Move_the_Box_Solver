@@ -61,6 +61,8 @@ class Board:
                     print('\033[31m' + str(element) + '\033[0m', end='')
                 elif element is constants.YELLOW:
                     print('\033[93m' + str(element) + '\033[0m', end='')
+                elif element is constants.BROWN:
+                    print('\033[38;5;94m' + str(element) + '\033[0m', end='')
                 else:
                     print(element, end='')
             print()
