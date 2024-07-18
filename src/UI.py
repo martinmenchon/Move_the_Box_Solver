@@ -3,12 +3,7 @@ import numpy as np
 import constants
 from board import Board
 
-
-def buildBoard(level):
-    # Creates a board
-    board = Board(constants.H, constants.W)
-    
-    boxes = {
+boxes = {
         constants.RED:'red_box.png',
         constants.GREEN: 'green_box.png',
         constants.YELLOW: 'yellow_box.png',
@@ -17,6 +12,9 @@ def buildBoard(level):
         constants.BLACK: 'black_box.png'
     }
 
+def buildBoard(level):
+    # Creates a board
+    board = Board(constants.H, constants.W)
     img_rgb = cv.imread(f'assets/levels/{level}')
     img_rgb = img_rgb[177:1727, 0:1080]
 
@@ -43,20 +41,6 @@ def buildBoard(level):
 
     return board
 
-
-def find_color(box):
-    # Boxes
-    boxes = {
-        constants.RED:'red_box.png',
-        constants.GREEN: 'green_box.png',
-        constants.YELLOW: 'yellow_box.png',
-        constants.BLUE: 'blue_box.png',
-        constants.BROWN: 'brown_box.png',
-        constants.BLACK: 'black_box.png'
-    }
-    return boxes[box]
-
-
 def draw_board(board, step, move):
     img_rgb = cv.imread('assets/backgrounds/miami.png')
     img_rgb = img_rgb[177:1727, 0:1080]
@@ -64,7 +48,7 @@ def draw_board(board, step, move):
     list_of_boxes = board.get_boxes()
     for box in list_of_boxes:
         color = board.get_color(box)
-        box_name = find_color(color)
+        box_name = boxes[color]
 
         x = box[0] * 155 #Change 155 to constant
         y = box[1] * 155
