@@ -8,15 +8,20 @@ def buildBoard(level):
     # Creates a board
     board = Board(constants.H, constants.W)
     
-    #Boxes
-    boxes = [[constants.RED, "red_box.png"], [constants.GREEN, 'green_box.png'], [constants.YELLOW, 'yellow_box.png'],
-             [constants.BLUE, 'blue_box.png'], [constants.BROWN, 'brown_box.png'], [constants.BLACK, 'black_box.png']]
+    boxes = {
+        constants.RED:'red_box.png',
+        constants.GREEN: 'green_box.png',
+        constants.YELLOW: 'yellow_box.png',
+        constants.BLUE: 'blue_box.png',
+        constants.BROWN: 'brown_box.png',
+        constants.BLACK: 'black_box.png'
+    }
 
     img_rgb = cv.imread(f'assets/levels/{level}')
     img_rgb = img_rgb[177:1727, 0:1080]
 
-    for box in boxes:
-        template = cv.imread(f'assets/boxes/{box[1]}') #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
+    for box, color in boxes.items():
+        template = cv.imread(f'assets/boxes/{color}') #the best solution is to detect the transparency (turn this into with adding -1 to read transparency)
         w, h = template.shape[0:2]
         res = cv.matchTemplate(img_rgb, template, cv.TM_CCOEFF_NORMED)
         threshold = 0.6
@@ -29,7 +34,7 @@ def buildBoard(level):
             y = int(pt[0] + w/2)
             y = int(y / 155)
 
-            board.insert_box([x,y], box[0])
+            board.insert_box([x, y], box)
             #cv.circle(img_rgb, (int(pt[0] + w/2), int(pt[1] + h/2)), 25, (0,0,255), thickness=2, lineType=8, shift=0)
             #cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
 
@@ -41,16 +46,18 @@ def buildBoard(level):
 
 def find_color(box):
     # Boxes
-    boxes = [[constants.RED, "red_box.png"], [constants.GREEN, 'green_box.png'], [constants.YELLOW, 'yellow_box.png'],
-             [constants.BLUE, 'blue_box.png'], [constants.BROWN, 'brown_box.png'], [constants.BLACK, 'black_box.png']]
-    box_name = ""
-    for element in boxes:
-        if box == element[0]:
-            box_name = element[1]
-    return box_name
+    boxes = {
+        constants.RED:'red_box.png',
+        constants.GREEN: 'green_box.png',
+        constants.YELLOW: 'yellow_box.png',
+        constants.BLUE: 'blue_box.png',
+        constants.BROWN: 'brown_box.png',
+        constants.BLACK: 'black_box.png'
+    }
+    return boxes[box]
 
 
-def draw_board(board,step, move):
+def draw_board(board, step, move):
     img_rgb = cv.imread('assets/backgrounds/miami.png')
     img_rgb = img_rgb[177:1727, 0:1080]
 

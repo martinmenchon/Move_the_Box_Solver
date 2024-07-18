@@ -1,12 +1,13 @@
 import copy
 import UI
+import logging
 
 #Game
 MAX_MOVES = 3 #Depends on the level #mover como param en el board
 board = UI.buildBoard('level_1.png')
 board.print_board()
 
-# board = Board("data/levels/level_22-3.csv")
+# board = Board("data/levels/North_America/Miami/level_22-3.csv")
 # board.print_board()
 print()
 
@@ -43,14 +44,14 @@ copy_board = copy.deepcopy(board)
 game_states = []
 game_states.append([board, []])
 
-print("Inicia BFS:\n")
+print("Start BFS:\n")
 moves_list = bfs(game_states)
 if len(moves_list) > 0:
-    print("Se encontro solucion:")
+    print("Solution found:")
     for move in moves_list:
         print(move)
 else:
-    print("No se encontro solucion")
+    print("No solution was found")
 
 
 for i, move in enumerate(moves_list):
