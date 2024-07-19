@@ -12,9 +12,9 @@ boxes = {
         constants.BLACK: 'black_box.png'
     }
 
-def buildBoard(level):
+def buildBoard(level, max_moves):
     # Creates a board
-    board = Board(constants.H, constants.W)
+    board = Board(constants.H, constants.W, max_moves)
     img_rgb = cv.imread(f'assets/levels/{level}')
     img_rgb = img_rgb[177:1727, 0:1080]
 

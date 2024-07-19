@@ -14,11 +14,11 @@ class Board:
             self.max_moves = int(args[0].split("-")[-1].split(".")[0])
 
         # when 2 arguments are passed
-        elif len(args) == 2:
+        elif len(args) == 3:
             self.h = args[0]
             self.w = args[1]
             self.matrix = [[0 for x in range(self.w)] for y in range(self.h)]
-            # self.max_moves = TODO not ready
+            self.max_moves = args[2]
 
     def insert_box(self, pos, color):
         self.matrix[pos[0]][pos[1]] = color
@@ -67,7 +67,7 @@ class Board:
                     print(element, end='')
             print()
 
-    def __check_down(self, pos):#acomodar solo mandar pos[1]
+    def __check_down(self, pos): #acomodar solo mandar pos[1]
         index=0
         l1=[]
         while index < self.h:
