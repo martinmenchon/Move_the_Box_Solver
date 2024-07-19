@@ -4,7 +4,6 @@ from board import Board
 from bfs import bfs
 import logging
 
-#TODO algorithm class
 #TODO pydoc
 #TODO docker
 #TODO pre-commit
