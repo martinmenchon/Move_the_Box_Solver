@@ -15,7 +15,6 @@ if __name__ == "__main__":
     board.print_board()
 
     #or try just with the .csv data
-
     # board = Board("data/levels/North_America/Miami/level_22-3.csv")
     # board.print_board()
 
@@ -32,7 +31,6 @@ if __name__ == "__main__":
     else:
         print("No solution was found")
 
-    UI.draw_board(board)
     for i, move in enumerate(moves_list):
         UI.draw_board(board, i, move)
         board.execute_move(move[0], move[1])
