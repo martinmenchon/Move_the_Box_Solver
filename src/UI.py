@@ -41,7 +41,7 @@ def buildBoard(level, max_moves):
     return board
 
 def draw_board(board, step, move):
-    img_rgb = cv.imread('assets/backgrounds/miami.png')
+    img_rgb = cv.imread('assets/backgrounds/north_america.png')
     img_rgb = img_rgb[177:1727, 0:1080]
 
     list_of_boxes = board.get_boxes()
