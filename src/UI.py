@@ -38,7 +38,6 @@ def buildBoard(level, max_moves):
 
     #board.print_board()
     cv.imwrite('assets/sol_0.png', img_rgb)
-
     return board
 
 def draw_board(board, step, move):

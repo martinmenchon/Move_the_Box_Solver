@@ -20,7 +20,6 @@ if __name__ == "__main__":
     # board.print_board()
 
     print()
-    copy_board = copy.deepcopy(board)
     game_states = []
     game_states.append({"board":board, "steps": []})
 
@@ -33,8 +32,9 @@ if __name__ == "__main__":
     else:
         print("No solution was found")
 
+    UI.draw_board(board)
     for i, move in enumerate(moves_list):
-        UI.draw_board(copy_board, i, move)
-        copy_board.execute_move(move[0], move[1])
+        UI.draw_board(board, i, move)
+        board.execute_move(move[0], move[1])
 
 #change name to step_list #box, move
