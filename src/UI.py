@@ -37,7 +37,7 @@ def buildBoard(level, max_moves):
             #cv.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
 
     #board.print_board()
-    cv.imwrite('assets/sol_0.png', img_rgb)
+    cv.imwrite('solution/sol_0.png', img_rgb)
     return board
 
 def draw_board(board, step, move):
@@ -68,4 +68,4 @@ def draw_board(board, step, move):
     cv.rectangle(img_rgb, (x1, y1), (x1 + 155, y1 + 155), (0, 0, 255), 2)
     cv.rectangle(img_rgb, (x2, y2), (x2 + 155, y2 + 155), (0, 0, 255), 2)
 
-    cv.imwrite(f'assets/sol_{step+1}.png', img_rgb)
+    cv.imwrite(f'solution/sol_{step+1}.png', img_rgb)

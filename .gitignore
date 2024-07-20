@@ -4,3 +4,5 @@ UI.cpython-37.pyc
 /__pycache__/Board.cpython-37.pyc
 .vscode
 .idea/
+solution/
+__pycache__

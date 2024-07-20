@@ -1,8 +1,9 @@
-import copy
 import UI
 from board import Board
 from bfs import bfs
 import logging
+import os
+import shutil
 
 #TODO pydoc
 #TODO docker
@@ -10,6 +11,10 @@ import logging
 #TODO add logs
 
 if __name__ == "__main__":
+    if os.path.exists("solution"):
+        shutil.rmtree("solution")
+    os.makedirs("solution")
+
     #Game
     board = UI.buildBoard(level='level_1.png', max_moves=3)
     board.print_board()
