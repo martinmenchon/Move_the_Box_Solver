@@ -160,3 +160,17 @@ class Board:
     def board_to_csv(self):
         df = pd.DataFrame(self.matrix)
         return df
+
+    def has_a_possible_solution(self):
+        dict_colors = {}
+        for x,row in enumerate(self.matrix):
+            for y,element in enumerate(row):
+                if element != 0:
+                    if element not in dict_colors:
+                        dict_colors[element] = 1
+                    else:
+                        dict_colors[element] += 1
+        for cant_color in dict_colors.values():
+            if cant_color <= 2:
+                return False
+        return True

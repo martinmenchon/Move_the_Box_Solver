@@ -15,10 +15,10 @@ def bfs(game_states):
                 for box in list_of_boxes:
                     possible_moves = actual_board.get_possible_moves(box)
                     for move in possible_moves:
-                        if actual_board.get_color(box) != actual_board.get_color(move): #Bound
+                        if actual_board.get_color(box) != actual_board.get_color(move) and actual_board.has_a_possible_solution(): #Bound
                             new_board = copy.deepcopy(actual_board)
                             new_board.execute_move(box, move)
-                            if new_board not in visited: #otra posible Bound es fijarse que haya colores 0 o >=3 HACER
+                            if new_board not in visited:
                                 new_steps_list = copy.deepcopy(steps_list)
                                 new_steps_list.append([box, move])
                                 game_states.append({"board": new_board, "steps": new_steps_list})

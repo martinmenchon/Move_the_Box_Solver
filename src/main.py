@@ -36,3 +36,5 @@ if __name__ == "__main__":
     for i, move in enumerate(moves_list):
         UI.draw_board(copy_board, i, move)
         copy_board.execute_move(move[0], move[1])
+
+#change name to step_list #box, move
