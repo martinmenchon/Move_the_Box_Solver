@@ -2,7 +2,7 @@
 
 ## Educational tool to solve the levels of the game move the box
 
-<img src="assets/Initial_guide/res.png"  width="400">
-<img src="assets/Initial_guide/res_0.png"  width="400">
-<img src="assets/Initial_guide/res_1.png"  width="400">
-<img src="assets/Initial_guide/res_2.png"  width="400">
+<img src="imgs/example.png"  width="400">
+<img src="imgs/res_0.png"  width="400">
+<img src="imgs/res_1.png"  width="400">
+<img src="imgs/res_2.png"  width="400">
