@@ -82,59 +82,59 @@ class Board:
             self.matrix[index][pos[1]] = l1[index]
             index+=1
 
-    def __check_row(self, row,a_eliminar):
+    def __check_row(self, row, to_delete):
         lastNumber = constants.EMPTY
         init = 0
-        list_a_revisar=[]
+        list_to_review=[]
         while init < self.w:
             if self.matrix[row][init] != constants.EMPTY:
                 if self.matrix[row][init] == lastNumber:
-                    list_a_revisar.append([row,init]) #Guardar la pos en realidad
+                    list_to_review.append([row,init]) #Guardar la pos en realidad
                 else: #Si encuentra algo que no sea un EMPTY lo tiene que guardar entremedio
-                    if len(list_a_revisar) >= 3:
-                        for pos in list_a_revisar:
-                            a_eliminar.append(pos)
-                    list_a_revisar.clear()
-                    list_a_revisar.append([row, init]) #Guardar la pos del nuevo nro
+                    if len(list_to_review) >= 3:
+                        for pos in list_to_review:
+                            to_delete.append(pos)
+                    list_to_review.clear()
+                    list_to_review.append([row, init]) #Guardar la pos del nuevo nro
                     lastNumber = self.matrix[row][init]      
             else: #Si encuentra un EMPTY entremedio
-                    if len(list_a_revisar) >= 3:
-                        for pos in list_a_revisar:
-                            a_eliminar.append(pos)
+                    if len(list_to_review) >= 3:
+                        for pos in list_to_review:
+                            to_delete.append(pos)
                     lastNumber = self.matrix[row][init]
-                    list_a_revisar.clear()
+                    list_to_review.clear()
             init+=1
-        if len(list_a_revisar) >= 3:#porque llega al final
-            for pos in list_a_revisar:
-                if pos not in a_eliminar:
-                    a_eliminar.append(pos)
+        if len(list_to_review) >= 3:#porque llega al final
+            for pos in list_to_review:
+                if pos not in to_delete:
+                    to_delete.append(pos)
 
-    def __check_col(self, col, a_eliminar):
+    def __check_col(self, col, to_delete):
         lastNumber = constants.EMPTY
         init = 0
-        list_a_revisar=[]
+        list_to_review=[]
         while init < self.h:
             if self.matrix[init][col] != constants.EMPTY:
                 if self.matrix[init][col] == lastNumber:
-                    list_a_revisar.append([init, col]) #Guardar la pos en realidad
+                    list_to_review.append([init, col]) #Guardar la pos en realidad
                 else: #Si encuentra algo que no sea un EMPTY lo tiene que guardar entremedio
-                    if len(list_a_revisar) >= 3:
-                        for pos in list_a_revisar:
-                            a_eliminar.append(pos)
-                    list_a_revisar.clear()
-                    list_a_revisar.append([init, col]) #Guardar la pos del nuevo nro
+                    if len(list_to_review) >= 3:
+                        for pos in list_to_review:
+                            to_delete.append(pos)
+                    list_to_review.clear()
+                    list_to_review.append([init, col]) #Guardar la pos del nuevo nro
                     lastNumber = self.matrix[init][col]      
             else: #Si encuentra un EMPTY entremedio
-                    if len(list_a_revisar) >= 3:
-                        for pos in list_a_revisar:
-                            a_eliminar.append(pos)
+                    if len(list_to_review) >= 3:
+                        for pos in list_to_review:
+                            to_delete.append(pos)
                     lastNumber = self.matrix[init][col]
-                    list_a_revisar.clear()
+                    list_to_review.clear()
             init+=1
-        if len(list_a_revisar) >= 3:#porque llega al final
-            for pos in list_a_revisar:
-                if pos not in a_eliminar:
-                    a_eliminar.append(pos)
+        if len(list_to_review) >= 3:#porque llega al final
+            for pos in list_to_review:
+                if pos not in to_delete:
+                    to_delete.append(pos)
 
     def execute_move(self,before,after):
         aux = self.matrix[before[0]][before[1]]
@@ -145,16 +145,16 @@ class Board:
         #Puede ir en procedimiento chequear tablero
         repeat = True
         while repeat:
-            a_eliminar=[]
+            to_delete=[]
             for row in range(0,self.h):
-                self.__check_row(row, a_eliminar)
+                self.__check_row(row, to_delete)
             for col in range(0, self.w):
-                self.__check_col(col, a_eliminar)
-            for pos in a_eliminar:
+                self.__check_col(col, to_delete)
+            for pos in to_delete:
                 self.matrix[pos[0]][pos[1]] = 0
-            for pos in a_eliminar:
+            for pos in to_delete:
                 self.__check_down([pos[0], pos[1]])# Tiene que ser en un for separado sino mueve mal
-            if len(a_eliminar) == 0:
+            if len(to_delete) == 0:
                 repeat = False
 
     def board_to_csv(self):
